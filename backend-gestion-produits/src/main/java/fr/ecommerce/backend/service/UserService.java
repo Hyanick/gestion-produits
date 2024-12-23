@@ -23,7 +23,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> findByEmail(String email) {
+    public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+    public boolean authenticate(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println("Mot de passe entré : " + password);
+            System.out.println("Mot de passe hashé en base : " + user.getPassword());
+            return true;
+        }
+        System.out.println("Mot de passe entré : " + password);
+        System.out.println("Mot de passe hashé en base : " + user.getPassword());
+
+        return false;
     }
 }

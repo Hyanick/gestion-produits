@@ -24,8 +24,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
-        Optional<User> userOptional = userService.findByEmail(email);
+    public boolean login(@RequestParam String email, @RequestParam String password) {
+        return   userService.authenticate(email, password);
+    }
+       // Optional<User> userOptional = userService.findByEmail(email);
 
      /*   if (userOptional.isPresent() && password.equals(userOptional.get().getPassword())) {
             return "Connexion réussie.";
@@ -33,7 +35,7 @@ public class UserController {
             return "Échec de la connexion.";
         }
     }*/
-
+/*
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
@@ -48,4 +50,6 @@ public class UserController {
         }
         return "Utilisateur non trouvé.";
     }
+
+ */
 }
