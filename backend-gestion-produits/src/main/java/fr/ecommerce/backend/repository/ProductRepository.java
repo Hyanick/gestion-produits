@@ -16,6 +16,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.user.username = :username ORDER BY p.createdAt DESC")
     List<Product> findByUserUsernameOrderByCreatedAtDesc(@Param("username") String username);
 
+    List<Product> findAllByOrderByCreatedAtDesc();
+
     @Query("from User u where u.name like %?1% or u.email like %?1%")
     List<Product> findByUser(User user);
 }

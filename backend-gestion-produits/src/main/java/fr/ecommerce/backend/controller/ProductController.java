@@ -24,6 +24,11 @@ public class ProductController {
     public List<Product> getProductsByUsernameOrderByCreatedAt(@PathVariable String username) {
         return productService.getProductsByUsernameOrderByCreatedAt(username);
     }
+
+    @GetMapping
+    public List<Product> getAllProductsOrderByCreatedAt() {
+        return productService.getAllProductsOrderByCreatedAt();
+    }
   /*  public List<Product> getProductsByUsername(@PathVariable String username) {
         return productService.getProductsByUsername(username);
     }*/

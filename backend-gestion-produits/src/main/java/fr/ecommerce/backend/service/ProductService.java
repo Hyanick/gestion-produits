@@ -39,6 +39,10 @@ public class ProductService {
         return productRepository.findByUserUsernameOrderByCreatedAtDesc(username);
     }
 
+    public List<Product> getAllProductsOrderByCreatedAt() {
+        return productRepository.findAllByOrderByCreatedAtDesc();
+    }
+
 
 
 
