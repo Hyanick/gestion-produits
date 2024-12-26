@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // Méthode pour récupérer tous les produits créés par un utilisateur spécifique
+    List<Product> findByUserUsername(String username);
+
     @Query("from User u where u.name like %?1% or u.email like %?1%")
     List<Product> findByUser(User user);
 }

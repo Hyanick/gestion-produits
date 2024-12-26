@@ -14,6 +14,21 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @PostMapping
+    public Product createProduct(@RequestParam String username, @RequestBody Product product) {
+        return productService.createProduct(username, product);
+    }
+
+    @GetMapping("/user/{username}")
+    public List<Product> getProductsByUsername(@PathVariable String username) {
+        return productService.getProductsByUsername(username);
+    }
+
+
+
+
+
 /*
     // Endpoint pour créer un produit
     @PostMapping

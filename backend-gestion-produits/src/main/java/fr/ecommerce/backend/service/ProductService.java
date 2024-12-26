@@ -21,6 +21,23 @@ public class ProductService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+    public Product createProduct(String username, Product product) {
+        User user = userService.findByUsername(username);
+        product.setUser(user);
+        return productRepository.save(product);
+    }
+
+    public List<Product> getProductsByUsername(String username) {
+        return productRepository.findByUserUsername(username);
+    }
+
+
+
+
 /*
     // Méthode pour créer un produit
     public Product createProduct(String name, String description, BigDecimal price) {

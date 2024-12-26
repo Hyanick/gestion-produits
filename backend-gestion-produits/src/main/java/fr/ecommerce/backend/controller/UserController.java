@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users/")
 public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -24,9 +24,9 @@ public class UserController {
     }
 */
 
-    @PostMapping("/register")
+    @PostMapping("register")
     public User register(@RequestBody User user) {
-      user =   userService.registerUser(user);
+      user = userService.registerUser(user);
         return user;
     }
 
