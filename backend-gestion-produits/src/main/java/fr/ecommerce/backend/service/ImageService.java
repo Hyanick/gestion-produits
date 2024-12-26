@@ -26,5 +26,13 @@ public class ImageService {
     public String getImageUrl(String fileName) {
         return uploadDir + "/" + fileName;
     }
+
+    public void deleteImage(String filePath) {
+        try {
+            Files.deleteIfExists(Paths.get(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

@@ -1,5 +1,6 @@
 package fr.ecommerce.backend.service;
 
+import fr.ecommerce.backend.exceptions.ResourceNotFoundException;
 import fr.ecommerce.backend.model.Image;
 import fr.ecommerce.backend.model.Product;
 import fr.ecommerce.backend.model.User;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -98,6 +100,21 @@ public class ProductService {
 
     public List<Product> getAllProductsOrderByCreatedAt() {
         return productRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Transactional
+    public void deleteProduct(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + productId));
+
+        // Delete associated images
+        for (Image image : product.getImages()) {
+            imageRepository.delete(image);
+            imageService.deleteImage(image.getUrl());
+        }
+
+        // Delete the product
+        productRepository.delete(product);
     }
 
 

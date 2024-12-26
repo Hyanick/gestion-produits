@@ -77,6 +77,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers("/api/products").permitAll()
                         .requestMatchers("/api/products/user/{username}").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/error").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()

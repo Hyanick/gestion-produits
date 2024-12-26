@@ -48,6 +48,11 @@ public class ProductController {
     public List<Product> getAllProductsOrderByCreatedAt() {
         return productService.getAllProductsOrderByCreatedAt();
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+    }
   /*  public List<Product> getProductsByUsername(@PathVariable String username) {
         return productService.getProductsByUsername(username);
     }*/
