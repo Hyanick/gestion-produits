@@ -16,17 +16,26 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @PostMapping("/register")
-    public String register(@RequestParam String email, @RequestParam String password) {
-        userService.registerUser(email, password);
+/*
+   @PostMapping("/register")
+    public String register(@RequestParam String email, @RequestParam String password, @RequestParam String name) {
+        userService.registerUser(email, password, name);
         return "Utilisateur enregistré avec succès.";
     }
+*/
 
-    @PostMapping("/login")
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+      user =   userService.registerUser(user);
+        return user;
+    }
+
+
+   /* @PostMapping("/login")
     public boolean login(@RequestParam String email, @RequestParam String password) {
         return   userService.authenticate(email, password);
     }
+    /*
        // Optional<User> userOptional = userService.findByEmail(email);
 
      /*   if (userOptional.isPresent() && password.equals(userOptional.get().getPassword())) {

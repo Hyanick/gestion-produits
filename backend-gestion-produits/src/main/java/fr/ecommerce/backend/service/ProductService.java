@@ -46,7 +46,7 @@ public class ProductService {
         }
     }
 */
-
+/*
     // Méthode pour créer un produit
     public Product createProduct(String name, String description, BigDecimal price) {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -60,13 +60,15 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+    */
     // Méthode pour récupérer les produits de l'utilisateur
-    public List<Product> getUserProducts() {
+  /*  public List<Product> getUserProducts() {
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        User user = userRepository.findByEmail(username);
+        Optional <User> user = userRepository.findByEmail(username);
 
-        return productRepository.findByUser(user);
+        //return productRepository.findByUser(user);
     }
+    */
    /*
         String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Optional<User> optionalUser = userRepository.findByEmail(username);

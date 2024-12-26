@@ -15,19 +15,39 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public User registerUser(String email, String password) {
+/*
+    public User registerUser (String email, String password, String name) {
         User user = new User();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        return userRepository.save(user);
+        user.setName(name);
+        System.out.println("email : " + email);
+        System.out.println("password : " + password);
+        System.out.println("name : " + name);
+        System.out.println("user : " + user);
+
+         userRepository.save(user);
+        return user;
+    }
+*/
+    public User registerUser (User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println("email : " + user.getEmail());
+        System.out.println("password : " + user.getPassword());
+        System.out.println("name : " + user.getName());
+        System.out.println("user : " + user);
+
+        userRepository.save(user);
+        return user;
     }
 
-    public User findByEmail(String email) {
+    public User  findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    /*
     public boolean authenticate(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        Optional <User>  user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             System.out.println("Mot de passe entré : " + password);
             System.out.println("Mot de passe hashé en base : " + user.getPassword());
@@ -38,4 +58,6 @@ public class UserService {
 
         return false;
     }
+    /*
+     */
 }

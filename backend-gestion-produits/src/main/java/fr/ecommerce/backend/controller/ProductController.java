@@ -14,7 +14,7 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
+/*
     // Endpoint pour créer un produit
     @PostMapping
     public Product createProduct(@RequestParam String name, @RequestParam String description, @RequestParam BigDecimal price) {
@@ -27,4 +27,5 @@ public class ProductController {
         // Logique pour retourner les produits de l'utilisateur connecté
         return productService.getUserProducts();
     }
+    */
 }
