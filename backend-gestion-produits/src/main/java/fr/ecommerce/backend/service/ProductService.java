@@ -1,17 +1,22 @@
 package fr.ecommerce.backend.service;
 
+import fr.ecommerce.backend.model.Image;
 import fr.ecommerce.backend.model.Product;
 import fr.ecommerce.backend.model.User;
+import fr.ecommerce.backend.repository.ImageRepository;
 import fr.ecommerce.backend.repository.ProductRepository;
 import fr.ecommerce.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -25,12 +30,64 @@ public class ProductService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
+    @Autowired
+    private ImageService imageService;
+
+    // Pour tester les ajouts de  produits avec images dans postman
+    public Product createProduct(String username, Product product, Set<MultipartFile> images) throws IOException {
+        User user = userService.findByUsername(username);
+        product.setUser(user);
+
+        Product savedProduct = productRepository.save(product);
+
+        if (images != null) {
+            for (MultipartFile imageFile : images) {
+                String fileName = imageService.saveImage(imageFile);
+                String imageUrl = imageService.getImageUrl(fileName);
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(savedProduct);
+                imageRepository.save(image);
+            }
+        }
+
+        return savedProduct;
+    }
+
+    /*
+    public Product createProduct(String username, Product product, Set<MultipartFile> images) throws IOException {
+        // Assuming you have a method to find the user by username
+        User user = userService.findByUsername(username);
+        product.setUser(user);
+
+        // Save the product first to get the generated ID
+        Product savedProduct = productRepository.save(product);
+
+        // Save the images and associate them with the product
+        if (images != null) {
+            for (MultipartFile imageFile : images) {
+                String fileName = imageService.saveImage(imageFile);
+                String imageUrl = imageService.getImageUrl(fileName);
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(savedProduct);
+                imageRepository.save(image);
+            }
+        }
+
+        return savedProduct;
+    }
+*/
+    /*
     public Product createProduct(String username, Product product) {
         User user = userService.findByUsername(username);
         product.setUser(user);
         return productRepository.save(product);
     }
-
+*/
     public List<Product> getProductsByUsername(String username) {
         return productRepository.findByUserUsername(username);
     }
