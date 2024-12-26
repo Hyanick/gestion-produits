@@ -47,13 +47,15 @@ public class ProductService {
 
         if (images != null) {
             for (MultipartFile imageFile : images) {
-                String fileName = imageService.saveImage(imageFile);
-                String imageUrl = imageService.getImageUrl(fileName);
+                String uniqueFileName = imageService.saveImage(imageFile);
+                String imageUrl = imageService.getImageUrl(uniqueFileName);
                 Image image = new Image();
                 image.setUrl(imageUrl);
                 image.setProduct(savedProduct);
                 imageRepository.save(image);
             }
+
+
         }
 
         return savedProduct;
