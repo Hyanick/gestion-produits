@@ -21,9 +21,12 @@ public class ProductController {
     }
 
     @GetMapping("/user/{username}")
-    public List<Product> getProductsByUsername(@PathVariable String username) {
-        return productService.getProductsByUsername(username);
+    public List<Product> getProductsByUsernameOrderByCreatedAt(@PathVariable String username) {
+        return productService.getProductsByUsernameOrderByCreatedAt(username);
     }
+  /*  public List<Product> getProductsByUsername(@PathVariable String username) {
+        return productService.getProductsByUsername(username);
+    }*/
 
 
 

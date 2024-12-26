@@ -35,6 +35,10 @@ public class ProductService {
         return productRepository.findByUserUsername(username);
     }
 
+    public List<Product> getProductsByUsernameOrderByCreatedAt(String username) {
+        return productRepository.findByUserUsernameOrderByCreatedAtDesc(username);
+    }
+
 
 
 
