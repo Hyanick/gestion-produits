@@ -24,9 +24,9 @@ public class ProductController {
 
     // Pour tester les ajouts de  produits avec images dans postman
     @PostMapping
-    public Product createProduct(@RequestParam String username, @RequestParam Long categoryId, @RequestParam String productJson, @RequestParam("images") MultipartFile[] images) throws IOException {
+    public Product createProduct(@RequestParam String username, @RequestParam Long categoryId, @RequestParam(required = false) Long subCategoryId, @RequestParam String productJson, @RequestParam("images") MultipartFile[] images) throws IOException {
         Product product = objectMapper.readValue(productJson, Product.class);
-        return productService.createProduct(username, categoryId, product, Set.of(images));
+        return productService.createProduct(username, categoryId, subCategoryId, product, Set.of(images));
     }
 
  /*   @PostMapping

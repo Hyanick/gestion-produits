@@ -1,10 +1,7 @@
 package fr.ecommerce.backend.service;
 
 import fr.ecommerce.backend.exceptions.ResourceNotFoundException;
-import fr.ecommerce.backend.model.Category;
-import fr.ecommerce.backend.model.Image;
-import fr.ecommerce.backend.model.Product;
-import fr.ecommerce.backend.model.User;
+import fr.ecommerce.backend.model.*;
 import fr.ecommerce.backend.repository.CategoryRepository;
 import fr.ecommerce.backend.repository.ImageRepository;
 import fr.ecommerce.backend.repository.ProductRepository;
@@ -44,16 +41,26 @@ public class ProductService {
 
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private SubCategoryService subCategoryService;
 
 
 
-    public Product createProduct(String username, Long categoryId, Product product, Set<MultipartFile> images) throws IOException {
+    public Product createProduct(String username, Long categoryId, Long subCategoryId, Product product, Set<MultipartFile> images) throws IOException {
         User user = userService.findByUsername(username);
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
+        Category category = categoryService.getCategoryById(categoryId);
+        SubCategory subCategory = null;
+
+        if (subCategoryId != null) {
+            subCategory = subCategoryService.getSubCategoryById(subCategoryId);
+        }
 
         product.setUser(user);
         product.setCategory(category);
+        product.setSubCategory(subCategory);
 
         Product savedProduct = productRepository.save(product);
 

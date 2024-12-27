@@ -1,38 +1,30 @@
 package fr.ecommerce.backend.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Category {
-
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "sub_category_id")
     private Long id;
 
-    @Column(name = "category_name")
+    @Column(name = "sub_category_name")
     private String name;
 
-    @Column(name = "category_description")
+    @Column(name = "sub_category_description")
     private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
     @JsonIgnore
-    private Set<Product> products;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<SubCategory> subCategories = new HashSet<>();
+    private Category category;
 
     // Getters and Setters
-
 
     public Long getId() {
         return id;
@@ -50,14 +42,6 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -66,12 +50,12 @@ public class Category {
         this.description = description;
     }
 
-    public Set<SubCategory> getSubCategories() {
-        return subCategories;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setSubCategories(Set<SubCategory> subCategories) {
-        this.subCategories = subCategories;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
 
