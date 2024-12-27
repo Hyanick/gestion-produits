@@ -9,6 +9,7 @@ import fr.ecommerce.backend.repository.CategoryRepository;
 import fr.ecommerce.backend.repository.ImageRepository;
 import fr.ecommerce.backend.repository.ProductRepository;
 import fr.ecommerce.backend.repository.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -150,6 +152,18 @@ public class ProductService {
 
         // Delete the product
         productRepository.delete(product);
+    }
+
+    public List<Product> searchProductsByKeyword(String keyword) {
+        return productRepository.findByKeyword(keyword).stream()
+                .peek(product -> Hibernate.initialize(product.getImages()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> searchProductsByCategoryName(String categoryName) {
+        return productRepository.findByCategoryName(categoryName).stream()
+                .peek(product -> Hibernate.initialize(product.getImages()))
+                .collect(Collectors.toList());
     }
 
 

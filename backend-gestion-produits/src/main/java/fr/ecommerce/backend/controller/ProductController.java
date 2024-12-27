@@ -49,6 +49,16 @@ public class ProductController {
         return productService.getAllProductsOrderByCreatedAt();
     }
 
+    @GetMapping("/search")
+    public List<Product> searchProductsByKeyword(@RequestParam String keyword) {
+        return productService.searchProductsByKeyword(keyword);
+    }
+
+    @GetMapping("/search/category")
+    public List<Product> searchProductsByCategoryName(@RequestParam String categoryName) {
+        return productService.searchProductsByCategoryName(categoryName);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);

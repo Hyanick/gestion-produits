@@ -18,6 +18,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByOrderByCreatedAtDesc();
 
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %:keyword% OR p.description LIKE %:keyword%")
+    List<Product> findByKeyword(@Param("keyword") String keyword);
+
+    @Query("SELECT p FROM Product p JOIN p.category c WHERE c.name = :categoryName")
+    List<Product> findByCategoryName(@Param("categoryName") String categoryName);
+
     @Query("from User u where u.name like %?1% or u.email like %?1%")
     List<Product> findByUser(User user);
 }
