@@ -3,6 +3,7 @@ package fr.ecommerce.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.ecommerce.backend.model.Product;
 import fr.ecommerce.backend.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/products")
+@Tag(name = "Product", description = "Product management APIs")
 public class ProductController {
 
     @Autowired

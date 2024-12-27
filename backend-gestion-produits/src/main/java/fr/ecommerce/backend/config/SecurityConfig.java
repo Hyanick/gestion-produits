@@ -84,6 +84,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
                         .requestMatchers("/api/categories").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/**").authenticated())
                 // .requestMatchers("/**").permitAll())
                 .formLogin(c -> c.disable())

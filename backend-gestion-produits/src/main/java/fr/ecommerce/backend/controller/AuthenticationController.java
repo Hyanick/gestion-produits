@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import fr.ecommerce.backend.model.User;
 import fr.ecommerce.backend.repository.UserRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,7 +27,9 @@ import lombok.Setter;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/")
+@Tag(name = "Authentication", description = "Authentication management APIs")
 public class AuthenticationController {
+
     @Autowired
     private UserRepository userRepository;
     @Autowired

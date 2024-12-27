@@ -2,6 +2,7 @@ package fr.ecommerce.backend.controller;
 
 import fr.ecommerce.backend.model.User;
 import fr.ecommerce.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users/")
+@Tag(name = "Users", description = "users management APIs")
 public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
