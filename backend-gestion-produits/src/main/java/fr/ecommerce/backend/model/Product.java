@@ -14,12 +14,16 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long id;
 
+    @Column(name = "product_name")
     private String name;
 
+    @Column(name = "product_description")
     private String description;
 
+    @Column(name = "product_price")
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,7 +31,7 @@ public class Product {
     @JsonIgnore
     private User user;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "product_createdAt")
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -36,7 +40,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-
     private Category category;
 
     @PrePersist

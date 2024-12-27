@@ -8,8 +8,10 @@ public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
     private Long id;
 
+    @Column(name = "image_url")
     private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)

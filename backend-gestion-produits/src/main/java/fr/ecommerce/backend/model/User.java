@@ -16,18 +16,19 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "user_email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_password")
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_name")
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_username")
     private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
