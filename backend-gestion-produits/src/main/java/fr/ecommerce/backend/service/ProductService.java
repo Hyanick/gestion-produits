@@ -1,9 +1,11 @@
 package fr.ecommerce.backend.service;
 
 import fr.ecommerce.backend.exceptions.ResourceNotFoundException;
+import fr.ecommerce.backend.model.Category;
 import fr.ecommerce.backend.model.Image;
 import fr.ecommerce.backend.model.Product;
 import fr.ecommerce.backend.model.User;
+import fr.ecommerce.backend.repository.CategoryRepository;
 import fr.ecommerce.backend.repository.ImageRepository;
 import fr.ecommerce.backend.repository.ProductRepository;
 import fr.ecommerce.backend.repository.UserRepository;
@@ -36,7 +38,38 @@ public class ProductService {
     private ImageRepository imageRepository;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private ImageService imageService;
+
+
+
+    public Product createProduct(String username, Long categoryId, Product product, Set<MultipartFile> images) throws IOException {
+        User user = userService.findByUsername(username);
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id " + categoryId));
+
+        product.setUser(user);
+        product.setCategory(category);
+
+        Product savedProduct = productRepository.save(product);
+
+        if (images != null) {
+            for (MultipartFile imageFile : images) {
+                String uniqueFileName = imageService.saveImage(imageFile);
+                String imageUrl = imageService.getImageUrl(uniqueFileName);
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(savedProduct);
+                imageRepository.save(image);
+            }
+        }
+
+        return savedProduct;
+    }
+
+    /*
 
     // Pour tester les ajouts de  produits avec images dans postman
     public Product createProduct(String username, Product product, Set<MultipartFile> images) throws IOException {
@@ -60,7 +93,7 @@ public class ProductService {
 
         return savedProduct;
     }
-
+*/
     /*
     public Product createProduct(String username, Product product, Set<MultipartFile> images) throws IOException {
         // Assuming you have a method to find the user by username

@@ -82,6 +82,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
+                        .requestMatchers("/api/categories").permitAll()
                         .requestMatchers("/**").authenticated())
                 // .requestMatchers("/**").permitAll())
                 .formLogin(c -> c.disable())
