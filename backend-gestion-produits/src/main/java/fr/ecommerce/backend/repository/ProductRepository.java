@@ -26,5 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("from User u where u.name like %?1% or u.email like %?1%")
     List<Product> findByUser(User user);
+
+
 }
 

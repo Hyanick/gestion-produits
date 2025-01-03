@@ -61,6 +61,11 @@ public class ProductController {
         return productService.searchProductsByCategoryName(categoryName);
     }
 
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);

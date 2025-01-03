@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
 import java.util.Set;
@@ -66,10 +67,18 @@ public class ProductService {
 
         if (images != null) {
             for (MultipartFile imageFile : images) {
-                String uniqueFileName = imageService.saveImage(imageFile);
-                String imageUrl = imageService.getImageUrl(uniqueFileName);
+                String publicUrl = imageService.saveImage(imageFile);
+                String imageUrl = imageService.getImageUrl(publicUrl);
                 Image image = new Image();
                 image.setUrl(imageUrl);
+                // Enregistrer les métadonnées dans la base de données
+
+                image.setFileName(imageFile.getOriginalFilename());
+               // image.setFilePath(filePath.toString());
+               image.setUrl(publicUrl);
+                image.setContentType(imageFile.getContentType());
+                image.setSize(imageFile.getSize());
+                image.setUploadDate(LocalDateTime.now());
                 image.setProduct(savedProduct);
                 imageRepository.save(image);
             }
@@ -171,6 +180,11 @@ public class ProductService {
         return productRepository.findByCategoryName(categoryName).stream()
                 .peek(product -> Hibernate.initialize(product.getImages()))
                 .collect(Collectors.toList());
+    }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
     }
 
 

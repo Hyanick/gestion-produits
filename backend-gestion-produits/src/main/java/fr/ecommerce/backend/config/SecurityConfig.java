@@ -76,6 +76,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(customizer -> customizer
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/products/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
                         .requestMatchers("/api/products/**").permitAll()
                         .requestMatchers("/api/subcategories/**").permitAll()
                         .requestMatchers("/api/products/user/{username}").permitAll()

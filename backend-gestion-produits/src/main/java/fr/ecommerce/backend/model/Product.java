@@ -36,6 +36,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnoreProperties("product")
     private Set<Image> images;
 
     @ManyToOne(fetch = FetchType.LAZY)
