@@ -1,0 +1,62 @@
+  <!-- <div class="product-list">
+    <div class="product-item" *ngFor="let product of products()">
+      <div class="product-image">
+        <img [src]="product.images[0].url.replace('C:/Devs/Projets_Perso/images/', 'http://192.168.1.23:3001/')" alt="Product Image">
+      </div>
+      <div class="product-details">
+        <h2 class="product-title">{{ product.name }}</h2>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">{{ product.price }} €</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="product-list">
+    <div *ngFor="let product of products()" class="product-card">
+        <div class="product-image">
+            <img [src]="product.images[0].url.replace('C:/Devs/Projets_Perso/images/', 'http://192.168.1.23:3001/')" alt="Product Image">
+          </div>
+      <div class="product-info">
+        <h2 class="product-name">{{ product.name }}</h2>
+        <p class="product-price">{{ product.price | currency }}</p>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-date">{{ product?.createdAt | date: 'mediumDate' }}</p>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="page-container">
+    <!-- Filtre ou barre de navigation -->
+    <div class="filters">
+      <button class="filter-btn">Filtres</button>
+      <button class="sort-btn">Trier</button>
+    </div>
+  
+    <!-- Liste des produits -->
+   
+        <div class="product-list">
+            <div *ngFor="let product of products()" class="product-card">
+                <a [routerLink]="['/products', product.id]">
+
+                    <!-- <div class="product-image" *ngFor="let image of product.images">
+                        <img [src]="image.url.replace('C:/Devs/Projets_Perso/images/', 'http://192.168.1.23:3001/') || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+                      </div> -->
+                    <div class="product-image">
+                        <img [src]="product.images[0].url || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+                      </div>
+                      <div class="product-content">
+                        <h2 class="product-title">{{ product.name }}</h2>
+                        <p class="product-location">Rouen, France</p>
+                        <p class="product-price">{{ product.price | currency: 'EUR' }}</p>
+                        <p class="product-description">{{ product.description }}</p>
+                      </div> </a>
+
+            </div>
+          </div>
+    
+
+  </div>
+  
+  
+  
+  

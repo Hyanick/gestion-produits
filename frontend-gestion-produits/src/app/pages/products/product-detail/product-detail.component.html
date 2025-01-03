@@ -1,0 +1,47 @@
+<!-- <div class="product-detail" *ngIf="product"> -->
+    <!-- <div class="product-image">
+        <img [src]="product.images[0].url || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+    </div> -->
+    <!-- <div class="product-image" *ngFor="let image of product.images">
+        <img [src]="image.url || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+      </div> -->
+      <!-- <ngx-slick-carousel class="product-carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let image of product.images" class="slide">
+            <img [src]="image.url || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+        </div>
+      </ngx-slick-carousel>
+    <div class="product-details">
+      <h2 class="product-title">{{ product.name }}</h2>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-price">{{ product.price }} €</p>
+    </div>
+  </div> -->
+
+  <div class="product-detail-container">
+    <!-- Galerie d'images -->
+    <div class="image-gallery">
+      <div class="main-image">
+        <img [src]="selectedImage || product.images[0].url || 'https://via.placeholder.com/300x200'" alt="{{ product.name }}" />
+      </div>
+      <div class="thumbnail-gallery">
+        <img 
+          *ngFor="let image of product.images" 
+          [src]="image.url" 
+          alt="Thumbnail"
+          (click)="setSelectedImage(image.url)" 
+          [class.active]="image.url === selectedImage"
+        />
+      </div>
+    </div>
+  
+    <!-- Détails du produit -->
+    <div class="product-info">
+      <h1 class="product-title">{{ product.name }}</h1>
+      <p class="product-price">{{ product.price | currency: 'EUR' }}</p>
+      <p class="product-location">Localisation : Rouen, France</p>
+      <p class="product-date">Publié le : {{ product.createdAt | date: 'dd/MM/yyyy' }}</p>
+      <p class="product-description">{{ product.description }}</p>
+    </div>
+  </div>
+  
+  
